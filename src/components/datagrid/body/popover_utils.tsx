@@ -8,7 +8,6 @@
 
 import React from 'react';
 import { EuiText } from '../../text';
-import { EuiCodeBlock } from '../../code';
 import {
   EuiDataGridPopoverContents,
   EuiDataGridPopoverContent,
@@ -29,15 +28,6 @@ export const providedPopoverContents: EuiDataGridPopoverContents = {
       formattedText = JSON.stringify(JSON.parse(formattedText), null, 2);
     } catch (e) {} // eslint-disable-line no-empty
 
-    return (
-      <EuiCodeBlock
-        isCopyable
-        transparentBackground
-        paddingSize="none"
-        language="json"
-      >
-        {formattedText}
-      </EuiCodeBlock>
-    );
+    return <span>{formattedText}</span>;
   },
 };

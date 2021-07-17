@@ -30,8 +30,6 @@ export * from './call_out';
 
 export * from './card';
 
-export * from './code';
-
 export * from './collapsible_nav';
 
 export * from './color_picker';
@@ -101,8 +99,6 @@ export * from './link';
 
 export * from './list_group';
 
-export * from './markdown_editor';
-
 export * from './mark';
 
 export * from './modal';
@@ -156,8 +152,6 @@ export * from './basic_table';
 export * from './tabs';
 
 export * from './text';
-
-export * from './text_diff';
 
 export * from './title';
 

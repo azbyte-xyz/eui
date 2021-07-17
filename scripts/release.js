@@ -70,10 +70,10 @@ if (args.dry_run) {
 
   if (args.steps.indexOf('publish') > -1) {
     // prompt user for npm 2FA
-    const otp = await getOneTimePassword();
+    // const otp = await getOneTimePassword();
 
     // publish new version to npm
-    execSync(`npm publish --otp=${otp}`, execOptions);
+    execSync('npm pack');
   }
 
   if (args.steps.indexOf('docs') > -1) {
@@ -99,7 +99,7 @@ function parseArguments() {
     help: 'Dry run mode; no changes are made',
   });
 
-  const allSteps = ['test', 'build', 'version', 'tag', 'publish', 'docs'];
+  const allSteps = ['build', 'publish'];
   parser.add_argument('--steps', {
     help: 'Which release steps to run; a comma-separated list of values that can include "test", "build", "version", "tag", "publish" and "docs". If no value is given, all steps are run. Example: --steps=test,build,version,tag',
     default: allSteps.join(','),
