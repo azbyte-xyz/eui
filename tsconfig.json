@@ -53,8 +53,7 @@
     "typeRoots": ["node_modules/@types", "src/custom_typings"]
   },
   "include": [
-    "./src/**/*",
-    "./src-docs/**/*"
+    "./src/**/*"
   ],
   "exclude": ["node_modules", "**/*/*.spec.tsx"]
 }

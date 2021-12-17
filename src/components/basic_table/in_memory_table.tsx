@@ -24,14 +24,12 @@ import {
   defaults as paginationBarDefaults,
   Pagination as PaginationBarType,
 } from './pagination_bar';
-import { isString } from '../../services/predicate';
 import { Comparators, Direction } from '../../services/sort';
-import { EuiSearchBar, Query } from '../search_bar';
-import { EuiSpacer } from '../spacer';
 import { CommonProps } from '../common';
-import { EuiSearchBarProps } from '../search_bar/search_bar';
 import { SchemaType } from '../search_bar/search_box';
 import { EuiTablePaginationProps } from '../table';
+
+interface Query {}
 
 interface onChangeArgument {
   query: Query | null;
@@ -39,13 +37,7 @@ interface onChangeArgument {
   error: Error | null;
 }
 
-function isEuiSearchBarProps<T>(
-  x: EuiInMemoryTableProps<T>['search']
-): x is EuiSearchBarProps {
-  return typeof x !== 'boolean';
-}
-
-export type Search = boolean | EuiSearchBarProps;
+export type Search = boolean;
 
 interface PaginationOptions extends EuiTablePaginationProps {
   pageSizeOptions?: number[];
@@ -121,25 +113,6 @@ interface State<T> {
   allowNeutralSort: boolean;
   showPerPageOptions: boolean | undefined;
 }
-
-const getQueryFromSearch = (
-  search: Search | undefined,
-  defaultQuery: boolean
-) => {
-  let query: Query | string;
-  if (!search) {
-    query = '';
-  } else {
-    query =
-      (defaultQuery
-        ? (search as EuiSearchBarProps).defaultQuery ||
-          (search as EuiSearchBarProps).query ||
-          ''
-        : (search as EuiSearchBarProps).query) || '';
-  }
-
-  return isString(query) ? EuiSearchBar.Query.parse(query) : query;
-};
 
 const getInitialPagination = (pagination: Pagination | undefined) => {
   if (!pagination) {
@@ -324,12 +297,8 @@ export class EuiInMemoryTable<T> extends Component<
       };
     }
 
-    const nextQuery = nextProps.search
-      ? (nextProps.search as EuiSearchBarProps).query
-      : '';
-    const prevQuery = prevState.prevProps.search
-      ? (prevState.prevProps.search as EuiSearchBarProps).query
-      : '';
+    const nextQuery = '';
+    const prevQuery = '';
 
     if (nextQuery !== prevQuery) {
       updatedPrevState = {
@@ -338,7 +307,7 @@ export class EuiInMemoryTable<T> extends Component<
           ...updatedPrevState.prevProps,
           search: nextProps.search,
         },
-        query: getQueryFromSearch(nextProps.search, false),
+        query: '',
       };
     }
     if (updatedPrevState !== prevState) {
@@ -367,7 +336,7 @@ export class EuiInMemoryTable<T> extends Component<
         search,
       },
       search: search,
-      query: getQueryFromSearch(search, true),
+      query: '',
       pageIndex: pageIndex || 0,
       pageSize,
       pageSizeOptions,
@@ -454,27 +423,8 @@ export class EuiInMemoryTable<T> extends Component<
     });
   };
 
-  onQueryChange = ({ query, queryText, error }: onChangeArgument) => {
+  onQueryChange = ({ query }: onChangeArgument) => {
     const { search } = this.props;
-    if (isEuiSearchBarProps(search)) {
-      if (search.onChange) {
-        const shouldQueryInMemory =
-          error == null
-            ? search.onChange({
-                query: query!,
-                queryText,
-                error: null,
-              })
-            : search.onChange({
-                query: null,
-                queryText,
-                error,
-              });
-        if (!shouldQueryInMemory) {
-          return;
-        }
-      }
-    }
 
     // Reset pagination state.
     this.setState((state) => ({
@@ -486,32 +436,6 @@ export class EuiInMemoryTable<T> extends Component<
       pageIndex: 0,
     }));
   };
-
-  renderSearchBar() {
-    const { search } = this.props;
-    if (search) {
-      let searchBarProps: Omit<EuiSearchBarProps, 'onChange'> = {};
-
-      if (isEuiSearchBarProps(search)) {
-        const { onChange, ..._searchBarProps } = search;
-        searchBarProps = _searchBarProps;
-
-        if (searchBarProps.box && searchBarProps.box.schema === true) {
-          searchBarProps.box = {
-            ...searchBarProps.box,
-            schema: this.resolveSearchSchema(),
-          };
-        }
-      }
-
-      return (
-        <>
-          <EuiSearchBar onChange={this.onQueryChange} {...searchBarProps} />
-          <EuiSpacer size="l" />
-        </>
-      );
-    }
-  }
 
   resolveSearchSchema(): SchemaType {
     const { columns } = this.props;
@@ -558,7 +482,6 @@ export class EuiInMemoryTable<T> extends Component<
   }
 
   getItems() {
-    const { executeQueryOptions } = this.props;
     const {
       prevProps: { items },
     } = this.state;
@@ -572,9 +495,7 @@ export class EuiInMemoryTable<T> extends Component<
 
     const { query, sortName, pageIndex, pageSize } = this.state;
 
-    const matchingItems = query
-      ? EuiSearchBar.Query.execute(query, items, executeQueryOptions)
-      : items;
+    const matchingItems = query ? [] : items;
 
     const sortedItems = sortName
       ? matchingItems
@@ -662,9 +583,7 @@ export class EuiInMemoryTable<T> extends Component<
           allowNeutralSort: this.state.allowNeutralSort,
         };
 
-    const searchBar = this.renderSearchBar();
-
-    const table = (
+    return (
       // @ts-ignore complex relationship between pagination's existence and criteria, the code logic ensures this is correctly maintained
       <EuiBasicTable
         ref={this.tableRef}
@@ -687,18 +606,6 @@ export class EuiInMemoryTable<T> extends Component<
         itemIdToExpandedRowMap={itemIdToExpandedRowMap}
         {...rest}
       />
-    );
-
-    if (!searchBar) {
-      return table;
-    }
-
-    return (
-      <div>
-        {searchBar}
-        {childrenBetween}
-        {table}
-      </div>
     );
   }
 }

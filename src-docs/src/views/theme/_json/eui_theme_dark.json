@@ -41,25 +41,9 @@
     "paddingLarge": "24px"
   },
   "euiCheckableCardPadding": "16px",
-  "euiCodeBlockPaddingModifiers": {
-    "paddingSmall": "8px",
-    "paddingMedium": "16px",
-    "paddingLarge": "24px"
-  },
   "euiCollapsibleNavGroupLightBackgroundColor": "#141519",
   "euiCollapsibleNavGroupDarkBackgroundColor": "#131317",
   "euiCollapsibleNavGroupDarkHighContrastColor": "#36a2ef",
-  "euiColorPickerValueRange0": "#ffffff",
-  "euiColorPickerValueRange1": "rgba(255, 255, 255, 0)",
-  "euiColorPickerSaturationRange0": "#000000",
-  "euiColorPickerSaturationRange1": "rgba(0, 0, 0, 0)",
-  "euiColorPickerIndicatorSize": "12px",
-  "euiColorPickerWidth": "152px",
-  "euiColorPaletteDisplaySizes": {
-    "sizeExtraSmall": "4px",
-    "sizeSmall": "8px",
-    "sizeMedium": "16px"
-  },
   "euiContextMenuWidth": "256px",
   "euiControlBarBackground": "#000000",
   "euiControlBarText": "#a9aaad",
@@ -178,7 +162,6 @@
     "medium": "14px",
     "large": "22px"
   },
-  "euiMarkdownEditorMinHeight": "150px",
   "euiResizableButtonTransitionSpeed": "150ms",
   "euiResizableButtonSize": "16px",
   "euiSelectableListItemBorder": "1px solid #202128",
@@ -204,20 +187,6 @@
       "color": "#d6bf57",
       "font-weight": 500
     }
-  },
-  "euiSideNavEmphasizedBackgroundColor": "rgba(52, 55, 65, 0.30000000000000004)",
-  "euiSideNavRootTextcolor": "#dfe5ef",
-  "euiSideNavBranchTextcolor": "#878b95",
-  "euiSideNavSelectedTextcolor": "#36a2ef",
-  "euiSideNavDisabledTextcolor": "#515761",
-  "euiStepNumberSize": "32px",
-  "euiStepNumberSmallSize": "24px",
-  "euiStepNumberMargin": "16px",
-  "euiStepStatusColorsToFade": {
-    "warning": "#f3d371",
-    "danger": "#f86b63",
-    "disabled": "#98a2b3",
-    "incomplete": "#98a2b3"
   },
   "euiSuggestItemColors": {
     "tint0": "#54b399",

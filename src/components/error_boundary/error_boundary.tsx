@@ -11,7 +11,6 @@ import classNames from 'classnames';
 import { CommonProps } from '../common';
 
 import { EuiTitle } from '../title';
-import { EuiCodeBlock } from '../code';
 import { EuiI18n } from '../i18n';
 import { withEuiTheme, WithEuiThemeProps } from '../../services';
 
@@ -81,14 +80,12 @@ ${stackStr}`;
           data-test-subj={dataTestSubj}
           {...rest}
         >
-          <EuiCodeBlock>
-            <EuiTitle size="xs">
-              <p>
-                <EuiI18n token="euiErrorBoundary.error" default="Error" />
-              </p>
-            </EuiTitle>
-            {this.state.error}
-          </EuiCodeBlock>
+          <EuiTitle size="xs">
+            <p>
+              <EuiI18n token="euiErrorBoundary.error" default="Error" />
+            </p>
+          </EuiTitle>
+          {this.state.error}
         </div>
       );
     }

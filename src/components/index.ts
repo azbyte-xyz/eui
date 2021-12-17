@@ -30,15 +30,9 @@ export * from './call_out';
 
 export * from './card';
 
-export * from './code';
-
 export * from './collapsible_nav';
 
-export * from './color_picker';
-
 export * from './combo_box';
-
-export * from './comment_list';
 
 export * from './context';
 
@@ -101,8 +95,6 @@ export * from './link';
 
 export * from './list_group';
 
-export * from './markdown_editor';
-
 export * from './mark';
 
 export * from './modal';
@@ -129,21 +121,15 @@ export * from './progress';
 
 export * from './provider';
 
-export * from './tree_view';
-
 export * from './observer/resize_observer';
 
 export * from './search_bar';
 
 export * from './selectable';
 
-export * from './side_nav';
-
 export * from './spacer';
 
 export * from './stat';
-
-export * from './steps';
 
 export * from './suggest';
 
@@ -158,10 +144,6 @@ export * from './basic_table';
 export * from './tabs';
 
 export * from './text';
-
-export * from './text_diff';
-
-export * from './timeline';
 
 export * from './title';
 

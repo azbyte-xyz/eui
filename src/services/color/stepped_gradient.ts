@@ -7,7 +7,11 @@
  */
 
 import chroma from 'chroma-js';
-import { ColorStop } from '../../components/color_picker/color_stops';
+
+interface ColorStop {
+  stop: number;
+  color: string;
+}
 
 export const getSteppedGradient = function (
   colors: ColorStop[],

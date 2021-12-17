@@ -104,7 +104,6 @@ export const useCellPopover = (): {
  * Popover content renderers
  */
 import { EuiText } from '../../text';
-import { EuiCodeBlock } from '../../code';
 
 export const DefaultCellPopover = ({
   schema,
@@ -136,14 +135,5 @@ export const JsonPopoverContent = ({ cellText }: { cellText: string }) => {
     formattedText = JSON.stringify(JSON.parse(formattedText), null, 2);
   } catch (e) {} // eslint-disable-line no-empty
 
-  return (
-    <EuiCodeBlock
-      isCopyable
-      transparentBackground
-      paddingSize="none"
-      language="json"
-    >
-      {formattedText}
-    </EuiCodeBlock>
-  );
+  return <span>{formattedText}</span>;
 };
